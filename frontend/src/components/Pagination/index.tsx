@@ -1,16 +1,22 @@
+import { MoviePage } from 'types/movie';
 import './styles.css';
 import { ReactComponent as Arrow } from 'assets/img/arrow.svg';
 
-export default function Pagination() {
+type Props = {
+    page: MoviePage;
+    onChage: Function;
+}
+
+export default function Pagination( { page, onChage } : Props) {
 
     return (
         <div className="dsmovie-pagination-container">
             <div className="dsmovie-pagination-box">
-                <button className="dsmovie-pagination-button" disabled={true} >
+                <button className="dsmovie-pagination-button" disabled={page.first} onClick={() => onChage(page.number - 1)}>
                     <Arrow />
                 </button>
-                <p>{`${1} de ${3}`}</p>
-                <button className="dsmovie-pagination-button" disabled={false} >
+                <p>{`${page.number + 1} de ${page.totalPages}`}</p>
+                <button className="dsmovie-pagination-button" disabled={page.last} onClick={() => onChage(page.number + 1)}>
                     <Arrow className="dsmovie-flip-horizontal" />
                 </button>
             </div>
